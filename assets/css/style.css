@@ -1,0 +1,74 @@
+/* fonts for the stylistic aspect of the game */
+
+@font-face {
+    font-family: 'spy_agency_semi-italicSIt';
+    src: url(../fonts/spyagency3_1semital-webfont.woff2) format('woff2'),
+         url(../fonts/spyagency3_1semital-webfont.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'top_secret_stampregular';
+    src: url(../fonts/top-secret-stamp-webfont.woff2) format('woff2'),
+         url(../fonts/top-secret-stamp-webfont.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+/* set the image as background with some responsive functionality */
+body, html {
+    height: 100%;
+}
+
+.bg {
+    /* the image used */
+    background-image: url(../images/cia-background-11.jpg);
+
+    /* Full height */
+    height: 100%;
+
+    /* center and scale the image */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 144%;
+
+}
+
+.container {
+    height: 100%;
+}
+
+/* setting the image background for the column that will hold the game */
+
+
+
+/* custom styling for the introductions */
+
+#quiz-area {
+    font-size: 1.7rem;
+    font-family: 'top_secret_stampregular';
+    color: #8e1414;
+    background-image: url(../images/aged-parchment-background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    line-height: 2.3rem;
+    padding: 2vh;
+    border-radius: 15px;
+    text-align: center;
+}
+
+/* custom styling for the start-game button */
+
+#start-game {
+    font-size: 1.7rem;
+    font-family: 'spy_agency_semi-italicSIt';
+    color: whitesmoke;
+    background-color: #8e1414;
+}
+
+
+
