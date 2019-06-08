@@ -15,37 +15,37 @@ $(document).ready(function() {
         question: "What branch of the United States government is most associated with spying?",
         answers: ["FBI", "CIA", "DHS", "NSA" ],
         correct: "CIA", 
-        imageCorrect: $("<img>").attr("src", "../assets/images/correct-gifs/correct-answer-1"),
-        imageIncorrect: $("<img>").attr("src", "../assets/images/incorrect-gifs/incorrect-answer-1")},
+        imageCorrect: $("<img>").attr("src", "../assets/images/correct-gifs/correct-answer-1.gif"),
+        imageIncorrect: $("<img>").attr("src", "../assets/images/incorrect-gifs/incorrect-answer-1.gif")},
     
     {
         question: "A spy's legend is: ",
         answers: ["The location where they transmit secret information", "A background story and documents that support a false identity", "A secret identity", "The spy's true dossier" ],
         correct: "Miss Moneypenny", 
-        imageCorrect: $("<img>").attr("src", "../assets/images/correct-gifs/correct-answer-2"),
-        imageIncorrect: $("<img>").attr("src", "../assets/images/incorrect-gifs/incorrect-answer-2"),
+        imageCorrect: $("<img>").attr("src", "../assets/images/correct-gifs/correct-answer-2.gif"),
+        imageIncorrect: $("<img>").attr("src", "../assets/images/incorrect-gifs/incorrect-answer-2.gif"),
     },
     {
         question: "Who created the James Bond character",
         answers: ["Sean Connery", "Terence Young", "Ian Fleming", "Harry Saltzman" ],
         correct: "Ian Fleming", 
-        imageCorrect: $("<img>").attr("src", "../assets/images/correct-gifs/correct-answer-3"),
-        imageIncorrect: $("<img>").attr("src", "../assets/images/incorrect-gifs/incorrect-answer-3"),
+        imageCorrect: $("<img>").attr("src", "../assets/images/correct-gifs/correct-answer-3.gif"),
+        imageIncorrect: $("<img>").attr("src", "../assets/images/incorrect-gifs/incorrect-answer-3.gif"),
     },
     {
         question: "Who were the two actors that played the lead roles, Jason Bourne and Aaron Cross, in the Bourne film series?",
         answers: ["Matt Damon & Ben Afflec", "Matt Damon & Jeremy Renner", "Matt Damon & Chris Cooper", "Matt Damon & Scott Glenn"],
         correct: "Matt Damon & Jeremy Renner", 
-        imageCorrect: $("<img>").attr("src", "../assets/images/correct-gifs/correct-answer-4"),
-        imageIncorrect: $("<img>").attr("src", "../assets/images/incorrect-gifs/incorrect-answer-4"),
+        imageCorrect: $("<img>").attr("src", "../assets/images/correct-gifs/correct-answer-4.gif"),
+        imageIncorrect: $("<img>").attr("src", "../assets/images/incorrect-gifs/incorrect-answer-4.gif"),
 
     },
     {
         question: "Espionage comes from the french word meaning:",
         answers: ["To be cloaked in darkness", "Secret", "Silence", "To spy" ],
         correct: "To spy", 
-        imageCorrect: $("<img>").attr("src", "../assets/images/correct-gifs/correct-answer-5"),
-        imageIncorrect: $("<img>").attr("src", "../assets/images/incorrect-gifs/incorrect-answer-5"),
+        imageCorrect: $("<img>").attr("src", "../assets/images/correct-gifs/correct-answer-5.gif"),
+        imageIncorrect: $("<img>").attr("src", "../assets/images/incorrect-gifs/incorrect-answer-5.gif"),
     }
     ]
 
@@ -56,23 +56,14 @@ $(document).ready(function() {
 
     var game = {
         // the game reaches into the questions array
-        questions: quiz,
+        questions: quiz.question,
         currentQuestion: 0,
         counter: questionSelfDestruct,
         correctAnswers: 0,
         incorrectAnswers: 0,
         unAnswered: 0,
 
-        // function that will start the timer with every new question
-        run() {
-
-            // need to clear the timer every time its newly called
-            clearInterval(timer);
-
-            // the timer will decrease by one second every time
-            timer = setInterval(decrement, 1000);
-
-        },
+       
 
         // now the decrement function has to be declared so that the browser understands where to use the interval
         countdownClock() {
@@ -81,10 +72,10 @@ $(document).ready(function() {
             questionSelfDestruct--;
 
             // create a p element that will be preppended to the quiz area
-            var timerDisplay = $("<p>").text(questionSelfDestruct);
+            var timerDisplay = $("<h1>").text(questionSelfDestruct);
             timerDisplay.addClass("danger-countdown");
             if (questionSelfDestruct == 0) {
-                timeUp();
+                game.timeUp();
             }
         },
 
@@ -97,7 +88,7 @@ $(document).ready(function() {
             quizAreaRedux = $("#quiz-area").val().trim();
 
             // insert contents dynamically
-            quizAreaRedux.html("<h2>" + question + "</h2>");
+            quizAreaRedux = $("#quiz-area").html("<h2>" + this.questions + "</h2>");
 
             // loop through the questions array for the question
             for (let i = 0; i < quiz.length; i++) {
@@ -118,7 +109,7 @@ $(document).ready(function() {
         nextQuestion() {
 
             // set the counter
-            game.countdownClock = questionSelfDestruct;
+            game.countdownClock();
 
             // using jQuery to change the text of the game counter
             $("#quiz-area").prepend(timerDisplay);
@@ -126,6 +117,7 @@ $(document).ready(function() {
             // increment current question by one
             this.currentQuestion++;
 
+            // this will load the question 
             this.loadQuestion();
 
         },
@@ -191,27 +183,35 @@ $(document).ready(function() {
                 incorrectImage = $("<img>").attr("src", imgURL);
             };
 
-            //if else statement that causes the question to show result if no more questions are available
+            if (this.currentQuestion == 5) {
+                this.results();
+            } else {
+                this.loadQuestion();
+            }
 
 
         },
 
-        // reset function
-
-            
-
-
-
-
-            
-
+        reset () {
+            quizAreaRedux.html("<p> TOP SECRET: CLEARANCE LEVEL DELTA ONLY <br> WELCOME AGENT #009 <br> YOU'VE SURVIVED THE TRIALS OF OUR ENTRANCE 'EXAMINATIONS' <br> COMMENDABLE, BUT NOW YOUR TRUE AND FINAL TEST AWAITS <br> YOU WILL NEED TO ANSWER EACH QUESTION CORRECTLY <br> EVERY QUESTION IS DESIGNED TO SELF-DESTRUCT IN 20 SECONDS <br> FAILURE WILL RESULT IN IMMEDIATE 'TERMINATION' FROM THE PROGRAM <br> BEST OF LUCK, AGENT. <br> </p>");
+            quiAreaReduz.append("#start-over");
 
         }
 
-    }
-
+        }
 
     
+    $(document).on("click", "#start-game", function () {
+        $("#quiz-area").prepend(game.countdownClock());
+        game.loadQuestion();
+    }),
+
+    $(document).on("click", "#start-over", function() {
+        game.reset();
+    })
+
+
+}
 
 )
 
